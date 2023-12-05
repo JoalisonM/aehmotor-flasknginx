@@ -1,0 +1,28 @@
+volumes:
+  teste-vol:
+
+
+services:
+
+  pgsql:
+    image: postgres:15.4
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: ${PASSWORD_DB} # environment variable that sets the superuser password for PostgreSQL
+      POSTGRES_USER: ${USER_DB} # variable that will create the specified user with superuser power and a database with the same name
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - teste-vol:/var/lib/postgresql/data
+    ports:
+      - 5434:5432
+
+  python:
+    build:
+      context: .
+      dockerfile: ./python.Dockerfile
+    depends_on:
+      - pgsql
+    ports:
+      - 5000:5000
+    volumes:
+      - .:/app
