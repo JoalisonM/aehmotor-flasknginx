@@ -1,5 +1,4 @@
 FROM python:3.10
-LABEL maintainer "Rhavy Maia Guedes <rhavy.guedes@ifpb.edu.br>"
 
 RUN apt-get update
 
